@@ -5,25 +5,31 @@ import {
   ScrollView,
   StyleSheet,
   Image,
+  SafeAreaView,
 } from "react-native";
 import React, { useState, useEffect } from "react";
 import { widthToDp, heightToDp } from "rn-responsive-screen";
+import { COLORS } from "../utils";
+import ProductsInfo from "../components/ProductInfo";
+import { Buttons } from "../components";
 
 const DetailScreen = ({ route }) => {
   const [activeImage, setActiveImage] = useState(null);
 
   const { des, uri } = route.params;
   return (
-    <View style={styles.imageContainer}>
-      <Image source={{ uri }} style={styles.image} />
-      <View style={styles.previewContainer}>
-        <TouchableOpacity
-          onPress={() => {
-            setActiveImage(data.image);
-          }}
-        ></TouchableOpacity>
+    <SafeAreaView style={styles.safeContainer}>
+      <View style={styles.imageContainer}>
+        <Image source={{ uri }} style={styles.image} />
       </View>
-    </View>
+      <View style={{ marginRight: 10, margin: 10 }}>
+        <Text style={styles.heading}>Description</Text>
+        <Text style={styles.description}>{des}</Text>
+      </View>
+      <View style={{ marginRight: 10, margin: 10 }}>
+        <Buttons title="Buy" />
+      </View>
+    </SafeAreaView>
   );
 };
 
@@ -39,15 +45,26 @@ const styles = StyleSheet.create({
     marginTop: widthToDp(-10),
   },
   imageContainer: {
-    backgroundColor: "#F7F6FB",
     paddingBottom: widthToDp(10),
   },
-  imagePreview: {
-    width: widthToDp(15),
-    marginRight: widthToDp(5),
-    borderColor: "#C37AFF",
-    borderRadius: 10,
-    height: widthToDp(15),
+
+  safeContainer: {
+    flex: 1,
+    backgroundColor: COLORS.white,
+  },
+  description: {
+    fontSize: heightToDp(4),
+    color: "#aaa",
+    marginTop: heightToDp(2),
+  },
+  heading: {
+    fontSize: heightToDp(5),
+    marginTop: heightToDp(3),
+  },
+  row: {
+    flexDirection: "row",
+    justifyContent: "space-between",
+    alignItems: "center",
   },
 });
 
