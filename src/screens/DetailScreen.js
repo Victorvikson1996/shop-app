@@ -12,14 +12,30 @@ import { widthToDp, heightToDp } from "rn-responsive-screen";
 import { COLORS } from "../utils";
 import ProductsInfo from "../components/ProductInfo";
 import { Buttons } from "../components";
+import { useNavigation } from "@react-navigation/native";
+import { AntDesign } from "@expo/vector-icons";
+
+const GoBackButton = () => {
+  const navigation = useNavigation();
+  return (
+    <TouchableOpacity
+      style={{ padding: 10 }}
+      onPress={() => navigation.goBack()}
+    >
+      <AntDesign name="arrowleft" size={24} color="black" />
+    </TouchableOpacity>
+  );
+};
 
 const DetailScreen = ({ route }) => {
   const [activeImage, setActiveImage] = useState(null);
 
   const { des, uri } = route.params;
+
   return (
     <SafeAreaView style={styles.safeContainer}>
       <View style={styles.imageContainer}>
+        <GoBackButton />
         <Image source={{ uri }} style={styles.image} />
       </View>
       <View style={{ marginRight: 10, margin: 10 }}>
