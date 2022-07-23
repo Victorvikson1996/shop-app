@@ -1,6 +1,8 @@
 import { View, Text, StyleSheet, Image } from "react-native";
 import React from "react";
 import { COLORS } from "../utils";
+import { AntDesign } from "@expo/vector-icons";
+import { Cart } from "./Cart";
 
 const Headers = ({ title }) => {
   return (
@@ -12,6 +14,7 @@ const Headers = ({ title }) => {
         style={styles.logo}
       /> */}
       <Text style={styles.title}>{title}</Text>
+      <Cart />
     </View>
   );
 };

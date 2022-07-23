@@ -17,6 +17,7 @@ const HomeScreen = () => {
   return (
     <SafeAreaView style={styles.container}>
       <Headers title="Shop Store" />
+
       <ScrollView>
         <View style={styles.products}>
           <FlatList
