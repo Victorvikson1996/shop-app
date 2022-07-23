@@ -1,6 +1,6 @@
 import { View, Text } from "react-native";
 import React from "react";
-import { DetailScreen, HomeScreen, SplashScreen } from "../screens";
+import { DetailScreen, HomeScreen, SplashScreen, CartScreen } from "../screens";
 import { createStackNavigator } from "@react-navigation/stack";
 import { NavigationContainer } from "@react-navigation/native";
 
@@ -17,6 +17,7 @@ export default function Navigation() {
         <Stack.Screen name="Splash" component={SplashScreen} />
         <Stack.Screen name="Home" component={HomeScreen} />
         <Stack.Screen name="Details" component={DetailScreen} />
+        <Stack.Screen name="Cart" component={CartScreen} />
       </Stack.Navigator>
     </NavigationContainer>
   );

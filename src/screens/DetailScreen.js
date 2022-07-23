@@ -15,7 +15,7 @@ import { Buttons } from "../components";
 import { useNavigation } from "@react-navigation/native";
 import { AntDesign } from "@expo/vector-icons";
 
-const GoBackButton = () => {
+export const GoBackButton = () => {
   const navigation = useNavigation();
   return (
     <TouchableOpacity
@@ -27,7 +27,7 @@ const GoBackButton = () => {
   );
 };
 
-const DetailScreen = ({ route }) => {
+const DetailScreen = ({ route, navigation }) => {
   const [activeImage, setActiveImage] = useState(null);
 
   const { des, uri } = route.params;
@@ -43,7 +43,7 @@ const DetailScreen = ({ route }) => {
         <Text style={styles.description}>{des}</Text>
       </View>
       <View style={{ marginRight: 10, margin: 10 }}>
-        <Buttons title="Buy" />
+        <Buttons title="Buy" onPress={() => navigation.navigate("Cart")} />
       </View>
     </SafeAreaView>
   );

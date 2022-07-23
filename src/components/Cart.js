@@ -10,10 +10,12 @@ import {
 } from "react-native";
 import { COLORS } from "../utils";
 import { AntDesign } from "@expo/vector-icons";
+import { useNavigation } from "@react-navigation/native";
 
-export const Cart = ({ onPress }) => {
+export const Cart = () => {
+  const navigation = useNavigation();
   return (
-    <TouchableOpacity>
+    <TouchableOpacity onPress={() => navigation.navigate("Cart")}>
       <AntDesign
         style={{ marginLeft: 40 }}
         name="shoppingcart"
