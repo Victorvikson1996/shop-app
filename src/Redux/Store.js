@@ -2,7 +2,7 @@ import { configureStore } from "@reduxjs/toolkit";
 import cartReducer from "./CartSlice";
 import productReducer, { fetchProducts } from "./ProductSlice";
 
-export const store = configureStore({
+const store = configureStore({
   reducer: {
     cart: cartReducer,
     product: productReducer,
@@ -10,3 +10,5 @@ export const store = configureStore({
 });
 
 store.dispatch(fetchProducts());
+
+export default store;
