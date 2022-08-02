@@ -12,25 +12,38 @@ import { COLORS } from "../utils";
 import Buttons from "./Buttons";
 import { useNavigation } from "@react-navigation/native";
 
-const ItemCards = ({ item }) => {
+const ItemCards = (products, item) => {
   const navigation = useNavigation();
+  // const { items, status } = useSelector((state) => state.products);
+  // const { data, error, isLoading } = useGetAllProductsQuery();
+
+  const Loading = () => {
+    return (
+      <View style={{ justifyContent: "center", alignItems: "center" }}>
+        <Text>Loading....</Text>
+      </View>
+    );
+  };
+
+  const Error = () => {
+    return (
+      <View style={{ justifyContent: "center", alignItems: "center" }}>
+        <Text>Error Occured</Text>
+      </View>
+    );
+  };
 
   return (
     <TouchableOpacity
       onPress={() =>
         navigation.navigate("Details", {
-          uri: item.image,
-          des: item.description,
+          // uri: products.image,
+          // des: products.description,
         })
       }
       style={styles.container}
     >
-      <Image
-        source={{
-          uri: item.image,
-        }}
-        style={styles.image}
-      />
+      <Image source={{ uri: item.image }} style={styles.image} />
       <Text style={styles.title}>{item.title}</Text>
       <Text style={styles.category}>{item.category}</Text>
       <View style={styles.priceContainer}>
