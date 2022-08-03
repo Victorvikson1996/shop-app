@@ -7,12 +7,6 @@ import { Cart } from "./Cart";
 const Headers = ({ title }) => {
   return (
     <View style={styles.container}>
-      {/* <Image
-        source={{
-          uri: "https://fakestoreapi.com/img/81fPKd-2AYL._AC_SL1500_.jpg",
-        }}
-        style={styles.logo}
-      /> */}
       <Text style={styles.title}>{title}</Text>
       <Cart />
     </View>

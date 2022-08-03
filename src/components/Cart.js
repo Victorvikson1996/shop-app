@@ -11,8 +11,10 @@ import {
 import { COLORS } from "../utils";
 import { AntDesign } from "@expo/vector-icons";
 import { useNavigation } from "@react-navigation/native";
+import { useSelector } from "react-redux";
 
 export const Cart = () => {
+  const items = useSelector((state) => state.cart);
   const navigation = useNavigation();
   return (
     <TouchableOpacity onPress={() => navigation.navigate("Cart")}>
@@ -44,7 +46,7 @@ export const Cart = () => {
             fontWeight: "bold",
           }}
         >
-          8
+          {items.length}
         </Text>
       </View>
     </TouchableOpacity>

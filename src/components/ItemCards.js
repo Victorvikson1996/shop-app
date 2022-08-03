@@ -13,25 +13,16 @@ import Buttons from "./Buttons";
 import { useNavigation } from "@react-navigation/native";
 import { useDispatch, useSelector } from "react-redux";
 
+import { add } from "../Redux/CartSlice";
+
 const ItemCards = ({ products, item, key }) => {
   const navigation = useNavigation();
   // const { items, status } = useSelector((state) => state.products);
   // const { data, error, isLoading } = useGetAllProductsQuery();
+  const dispatch = useDispatch();
 
-  const Loading = () => {
-    return (
-      <View style={{ justifyContent: "center", alignItems: "center" }}>
-        <Text>Loading....</Text>
-      </View>
-    );
-  };
-
-  const Error = () => {
-    return (
-      <View style={{ justifyContent: "center", alignItems: "center" }}>
-        <Text>Error Occured</Text>
-      </View>
-    );
+  const addItem = (item) => {
+    dispatch(add(item));
   };
 
   return (
@@ -40,6 +31,7 @@ const ItemCards = ({ products, item, key }) => {
         navigation.navigate("Details", {
           uri: item.image,
           des: item.description,
+          price: item.price,
         })
       }
       style={styles.container}
@@ -50,7 +42,7 @@ const ItemCards = ({ products, item, key }) => {
       <Text style={styles.category}>{item.category}</Text>
       <View style={styles.priceContainer}>
         <Text>${item.price}</Text>
-        <Buttons title="Add" />
+        <Buttons onPress={() => addItem(item)} title="Add" />
       </View>
     </TouchableOpacity>
   );

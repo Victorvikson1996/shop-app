@@ -43,15 +43,16 @@ const HomeScreen = () => {
       <Headers title="Shop Store" />
       <ScrollView>
         <View style={styles.products}>
-          {/* <FlatList
+          <FlatList
+            contentContainerStyle={{ flexGrow: 1, justifyContent: "center" }}
             data={items}
             keyExtractor={(item, index) => item.id}
             renderItem={({ item }) => <ItemCards item={item} />}
             numColumns={2}
-          /> */}
-          {items.map((item) => (
+          />
+          {/* {items.map((item) => (
             <ItemCards item={item} />
-          ))}
+          ))} */}
         </View>
       </ScrollView>
     </SafeAreaView>

@@ -11,13 +11,12 @@ import { widthToDp } from "rn-responsive-screen";
 
 const Buttons = ({ title, onPress, style, textSize }) => {
   return (
-    <TouchableOpacity style={[styles.container, style]}>
+    <TouchableOpacity onPress={onPress} style={[styles.container, style]}>
       <Text
         style={[
           styles.text,
           { fontSize: textSize ? textSize : widthToDp(3.5) },
         ]}
-        onPress={onPress}
       >
         {title}
       </Text>

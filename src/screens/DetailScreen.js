@@ -14,6 +14,8 @@ import ProductsInfo from "../components/ProductInfo";
 import { Buttons } from "../components";
 import { useNavigation } from "@react-navigation/native";
 import { AntDesign } from "@expo/vector-icons";
+import { useSelector, useDispatch } from "react-redux";
+import { add } from "../Redux/CartSlice";
 
 export const GoBackButton = () => {
   const navigation = useNavigation();
@@ -27,24 +29,34 @@ export const GoBackButton = () => {
   );
 };
 
-const DetailScreen = ({ route, navigation }) => {
+const DetailScreen = ({ route, navigation, item }) => {
   const [activeImage, setActiveImage] = useState(null);
 
-  const { des, uri } = route.params;
+  const dispatch = useDispatch();
+
+  const addItem = (item) => {
+    dispatch(add(item));
+    navigation.navigate("Cart", {});
+  };
+
+  const { des, uri, price } = route.params;
 
   return (
     <SafeAreaView style={styles.safeContainer}>
-      <View style={styles.imageContainer}>
-        <GoBackButton />
-        <Image source={{ uri }} style={styles.image} />
-      </View>
-      <View style={{ marginRight: 10, margin: 10 }}>
-        <Text style={styles.heading}>Description</Text>
-        <Text style={styles.description}>{des}</Text>
-      </View>
-      <View style={{ marginRight: 10, margin: 10 }}>
-        <Buttons title="Add" onPress={() => navigation.navigate("Cart")} />
-      </View>
+      <ScrollView>
+        <View style={styles.imageContainer}>
+          <GoBackButton />
+          <Image source={{ uri }} style={styles.image} />
+        </View>
+        <View style={{ marginRight: 10, margin: 10 }}>
+          <Text style={styles.heading}>Description</Text>
+          <Text style={styles.description}>{des}</Text>
+          <Text style={styles.price}>${price}</Text>
+        </View>
+        <View style={{ marginRight: 10, margin: 10 }}>
+          <Buttons title="Add" onPress={() => addItem(item)} />
+        </View>
+      </ScrollView>
     </SafeAreaView>
   );
 };
@@ -81,6 +93,11 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     justifyContent: "space-between",
     alignItems: "center",
+  },
+
+  price: {
+    fontSize: 30,
+    marginTop: heightToDp(2),
   },
 });
 
