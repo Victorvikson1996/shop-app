@@ -17,11 +17,36 @@ export const Cart = () => {
   return (
     <TouchableOpacity onPress={() => navigation.navigate("Cart")}>
       <AntDesign
-        style={{ marginLeft: 40 }}
+        style={{ marginLeft: 80 }}
         name="shoppingcart"
         size={24}
         color="black"
       />
+      <View
+        style={{
+          position: "absolute",
+          backgroundColor: "red",
+          width: 16,
+          height: 16,
+          borderRadius: 15 / 2,
+          right: 10,
+          top: +10,
+          alignItems: "center",
+          justifyContent: "center",
+        }}
+      >
+        <Text
+          style={{
+            alignItems: "center",
+            justifyContent: "center",
+            color: "#FFFFFF",
+            fontSize: 13,
+            fontWeight: "bold",
+          }}
+        >
+          8
+        </Text>
+      </View>
     </TouchableOpacity>
   );
 };

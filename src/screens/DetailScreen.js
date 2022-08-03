@@ -43,7 +43,7 @@ const DetailScreen = ({ route, navigation }) => {
         <Text style={styles.description}>{des}</Text>
       </View>
       <View style={{ marginRight: 10, margin: 10 }}>
-        <Buttons title="Buy" onPress={() => navigation.navigate("Cart")} />
+        <Buttons title="Add" onPress={() => navigation.navigate("Cart")} />
       </View>
     </SafeAreaView>
   );

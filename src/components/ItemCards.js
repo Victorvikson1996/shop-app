@@ -11,8 +11,9 @@ import { widthToDp, heightToDp } from "rn-responsive-screen";
 import { COLORS } from "../utils";
 import Buttons from "./Buttons";
 import { useNavigation } from "@react-navigation/native";
+import { useDispatch, useSelector } from "react-redux";
 
-const ItemCards = (products, item) => {
+const ItemCards = ({ products, item, key }) => {
   const navigation = useNavigation();
   // const { items, status } = useSelector((state) => state.products);
   // const { data, error, isLoading } = useGetAllProductsQuery();
@@ -37,18 +38,19 @@ const ItemCards = (products, item) => {
     <TouchableOpacity
       onPress={() =>
         navigation.navigate("Details", {
-          // uri: products.image,
-          // des: products.description,
+          uri: item.image,
+          des: item.description,
         })
       }
       style={styles.container}
+      key={item.id}
     >
       <Image source={{ uri: item.image }} style={styles.image} />
       <Text style={styles.title}>{item.title}</Text>
       <Text style={styles.category}>{item.category}</Text>
       <View style={styles.priceContainer}>
         <Text>${item.price}</Text>
-        <Buttons title="Buy" />
+        <Buttons title="Add" />
       </View>
     </TouchableOpacity>
   );

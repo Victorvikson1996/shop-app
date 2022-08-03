@@ -19,22 +19,21 @@ import { fetchProducts } from "../Redux/ProductSlice";
 
 const HomeScreen = () => {
   // const { data, error, isLoading } = useGetAllProductsQuery();
-  const { items, status, loading } = useSelector((state) => state.product);
-  console.log("ADADA:", items);
+  const { items, status } = useSelector((state) => state.product);
 
-  // const [isLoading, setisLoading] = useState(false);
+  const [isLoading, setisLoading] = useState(true);
 
   const dispatch = useDispatch();
 
   useEffect(() => {
     dispatch(fetchProducts());
-    // setisLoading(true);
+    setisLoading(false);
   }, []);
 
-  if (status === "success") {
+  if (isLoading) {
     return (
       <View style={styles.activityContainer}>
-        <ActivityIndicator size="large" loading={status} />
+        <ActivityIndicator size="large" loading={isLoading} />
       </View>
     );
   }
@@ -44,12 +43,15 @@ const HomeScreen = () => {
       <Headers title="Shop Store" />
       <ScrollView>
         <View style={styles.products}>
-          <FlatList
+          {/* <FlatList
             data={items}
-            keyExtractor={(item) => item.id}
-            renderItem={({ item }) => <ItemCards items={item} />}
+            keyExtractor={(item, index) => item.id}
+            renderItem={({ item }) => <ItemCards item={item} />}
             numColumns={2}
-          />
+          /> */}
+          {items.map((item) => (
+            <ItemCards item={item} />
+          ))}
         </View>
       </ScrollView>
     </SafeAreaView>

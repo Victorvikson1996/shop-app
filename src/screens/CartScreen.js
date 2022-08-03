@@ -27,12 +27,12 @@ const GoBack = ({}) => {
 const CartScreen = () => {
   return (
     <SafeAreaView style={styles.container}>
-      <View style={{ marginLeft: 20 }}>
+      <Headers style={styles.header} title="Cart" />
+      <View style={styles.goBack}>
         <GoBack />
       </View>
-      <View style={{ marginRight: 40 }}>
-        <Headers />
-      </View>
+
+      <View style={{ marginRight: 40 }}></View>
     </SafeAreaView>
   );
 };
@@ -41,6 +41,11 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: "#fff",
+    alignItems: "center",
+  },
+  goBack: {
+    marginRight: 300,
+    top: -30,
   },
 });
 export default CartScreen;
