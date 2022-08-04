@@ -14,7 +14,7 @@ import { useNavigation } from "@react-navigation/native";
 import { useSelector } from "react-redux";
 
 export const Cart = () => {
-  const { items, totalAmount } = useSelector((state) => state.cart);
+  const { items, totalAmount, products } = useSelector((state) => state.cart);
   console.log(items);
   const navigation = useNavigation();
   return (

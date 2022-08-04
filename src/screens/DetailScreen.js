@@ -31,12 +31,12 @@ export const GoBackButton = () => {
 
 const DetailScreen = ({ route, navigation, item }) => {
   const [activeImage, setActiveImage] = useState(null);
-
+  const { items, cart } = useSelector((state) => state.cart);
   const dispatch = useDispatch();
 
-  const addItem = (item) => {
-    dispatch(add(item));
-    navigation.navigate("Cart", {});
+  const addItem = () => {
+    dispatch(add({ cart }));
+    navigation.navigate("Cart");
   };
 
   const { des, uri, price } = route.params;
@@ -54,7 +54,7 @@ const DetailScreen = ({ route, navigation, item }) => {
           <Text style={styles.price}>${price}</Text>
         </View>
         <View style={{ marginRight: 10, margin: 10 }}>
-          <Buttons title="Add" onPress={() => addItem(item)} />
+          <Buttons title="Add" onPress={() => addItem(items)} />
         </View>
       </ScrollView>
     </SafeAreaView>

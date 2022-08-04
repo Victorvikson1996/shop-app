@@ -18,7 +18,13 @@ import { AntDesign } from "@expo/vector-icons";
 import { useNavigation } from "@react-navigation/native";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchProducts } from "../Redux/ProductSlice";
-import { clearCart } from "../Redux/CartSlice";
+import {
+  clearCart,
+  remove,
+  incrementQuantity,
+  decrementQuantity,
+  calculateTotals,
+} from "../Redux/CartSlice";
 import { Button } from "../components/Buttons";
 
 const GoBack = ({}) => {
@@ -31,6 +37,16 @@ const GoBack = ({}) => {
 };
 
 const CartItem = ({ item, key }) => {
+  const dispatch = useDispatch();
+  const { items } = useSelector((state) => state.cart);
+
+  const increment = () => {
+    dispatch(incrementQuantity(items));
+  };
+
+  const decrease = () => {
+    dispatch(decrementQuantity(items));
+  };
   return (
     <View>
       <Image source={{ uri: item.image }} style={styles.image} />
@@ -38,28 +54,22 @@ const CartItem = ({ item, key }) => {
       <View style={styles.priceContainer}>
         <Text style={styles.price}>${item.price}</Text>
         <TouchableOpacity>
-          <Buttons title="+" />
+          <Buttons title="+" onPress={() => increment(items)} />
         </TouchableOpacity>
         <TouchableOpacity>
-          <Buttons title="-" />
+          <Buttons title="-" onPress={() => decrease(items)} />
         </TouchableOpacity>
       </View>
     </View>
   );
 };
 
-const CartScreen = ({ navigation }) => {
-  const { items, amount, totalAmount, totalQuantity, quantity } = useSelector(
-    (state) => state.cart
-  );
-
-  const total = useSelector((state) => state.cart.total);
-
-  const subtotal = useSelector((state) => state.cart.totalAmount);
+const CartScreen = ({ navigation, route }) => {
+  const { items, cart } = useSelector((state) => state.cart);
+  const quantity = useSelector((state) => state.cart.quantity);
+  const amount = useSelector((state) => state.cart.amount);
 
   const dispatch = useDispatch();
-
-  console.log(items);
 
   if (quantity < 1) {
     return (
@@ -105,7 +115,9 @@ const CartScreen = ({ navigation }) => {
           renderItem={({ item }) => <CartItem item={item} />}
           ListFooterComponent={() => (
             <View style={styles.priceContainer}>
-              <Text style={styles.price}>Total: ${amount * quantity}</Text>
+              <Text style={styles.price}>
+                Total: ${quantity * amount.toFixed(2)}
+              </Text>
               <TouchableOpacity
                 onPress={() => {
                   dispatch(clearCart());
