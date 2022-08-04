@@ -19,6 +19,7 @@ import { useNavigation } from "@react-navigation/native";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchProducts } from "../Redux/ProductSlice";
 import { clearCart } from "../Redux/CartSlice";
+import { Button } from "../components/Buttons";
 
 const GoBack = ({}) => {
   const navigation = useNavigation();
@@ -36,19 +37,31 @@ const CartItem = ({ item, key }) => {
       <Text style={styles.title}>{item.title}</Text>
       <View style={styles.priceContainer}>
         <Text style={styles.price}>${item.price}</Text>
+        <TouchableOpacity>
+          <Buttons title="+" />
+        </TouchableOpacity>
+        <TouchableOpacity>
+          <Buttons title="-" />
+        </TouchableOpacity>
       </View>
     </View>
   );
 };
 
 const CartScreen = ({ navigation }) => {
-  const { items, total, amount } = useSelector((state) => state.cart);
+  const { items, amount, totalAmount, totalQuantity, quantity } = useSelector(
+    (state) => state.cart
+  );
+
+  const total = useSelector((state) => state.cart.total);
+
+  const subtotal = useSelector((state) => state.cart.totalAmount);
 
   const dispatch = useDispatch();
 
   console.log(items);
 
-  if (amount < 1) {
+  if (quantity < 1) {
     return (
       <SafeAreaView style={{ flex: 1, backgroundColor: "#fff" }}>
         <View
@@ -86,27 +99,33 @@ const CartScreen = ({ navigation }) => {
           <CartItem item={item} />
         ))}
       </ScrollView> */}
-      <View>
+      <ScrollView>
         <FlatList
           data={items}
           renderItem={({ item }) => <CartItem item={item} />}
           ListFooterComponent={() => (
             <View style={styles.priceContainer}>
-              <Text style={styles.price}>Total: ${total}</Text>
+              <Text style={styles.price}>Total: ${amount * quantity}</Text>
+              <TouchableOpacity
+                onPress={() => {
+                  dispatch(clearCart());
+                }}
+                style={{ paddingLeft: 50 }}
+              >
+                <Text
+                  style={{
+                    fontSize: 20,
+                    fontWeight: "normal",
+                    color: COLORS.violet,
+                  }}
+                >
+                  Clear Cart
+                </Text>
+              </TouchableOpacity>
             </View>
           )}
         />
-        <View>
-          <Buttons
-            title="Clear Cart"
-            onPress={() => {
-              dispatch(clearCart());
-            }}
-          />
-        </View>
-      </View>
-
-      <View style={{ marginRight: 40 }}></View>
+      </ScrollView>
     </SafeAreaView>
   );
 };

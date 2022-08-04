@@ -11,14 +11,38 @@ const initialState = {
 
 const CartSlice = createSlice({
   name: "cart",
-  initialState: initialState,
+  initialState: {
+    items: [], //produts: [],
+    amount: 0, //qantifty: 0,
+    total: 0, //total: 0,
+    quantity: 0,
+    totalQuantity: 0,
+    totalAmount: 0,
+  },
   reducers: {
-    add(state, action) {
-      state.push(action.payload);
+    add: (state, action) => {
+      state.quantity += 1;
+      state.items.push(action.payload);
+      state.total += action.payload.price * action.payload.quantity;
+      state.id = action.payload.id;
     },
-    remove(state, action) {
-      return (state = state.filter((item) => item.id !== action.payload));
-    },
+
+    // remove(state, action) {
+    //   return (state = state.filter((item) => item.id !== action.payload));
+    // },
+
+    // remove(state, action) {
+    //   const id = action.payload;
+    //   const existingItem = state.items.find((item) => item.id === id);
+    //   if (existingItem.quantity === 1) {
+    //     state.items = state.items.filter((item) => item.id !== id);
+    //   } else {
+    //     existingItem.quantity--;
+    //     existingItem.totalPrice = existingItem.totalPrice - existingItem.price;
+    //   }
+    //   state.totalQuantity--;
+    //   state.totalAmount = state.totalAmount - existingItem.price;
+    // },
 
     clearCart: (state) => {
       state.items = [];
@@ -41,6 +65,14 @@ const CartSlice = createSlice({
       });
       state.amount = amount;
       state.total = total;
+    },
+    remove: (state, action) => {
+      state.quantity -= 1;
+      state.total -= action.payload.price * action.payload.quantity;
+      state.items.splice(
+        state.items.findIndex((index) => index.id === action.payload.id),
+        1
+      );
     },
   },
 });

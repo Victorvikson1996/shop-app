@@ -24,6 +24,14 @@ const Buttons = ({ title, onPress, style, textSize }) => {
   );
 };
 
+export const Button = ({ title, onPress }) => {
+  return (
+    <TouchableOpacity onPress={onPress} style={styles.button}>
+      <Text style={styles.text1}>{title}</Text>
+    </TouchableOpacity>
+  );
+};
+
 const styles = StyleSheet.create({
   container: {
     backgroundColor: COLORS.black,
@@ -36,6 +44,19 @@ const styles = StyleSheet.create({
   text: {
     color: COLORS.white,
     fontWeight: "bold",
+  },
+  button: {
+    backgroundColor: "#171516",
+    color: "#FFFFFF",
+    borderRadius: 12,
+    paddingHorizontal: 20,
+    paddingVertical: 20,
+  },
+
+  text1: {
+    color: "#FFFFFF",
+    fontSize: 16,
+    fontWeight: "600",
   },
 });
 
